@@ -122,7 +122,7 @@ public class AdvRBMsgInterpolatorTest {
         Assert.assertEquals("ABCDEFGHI", constraintViolations.iterator().next().getMessage());
     }
 
-    @Test(dependsOnMethods = {"t_alwaysFailValidator", "t_normalRecursiveInterpolation"})
+    @Test(dependsOnMethods = {"t_normalRecursiveInterpolation"})
     public void t_normalRecursiveInterpolation_UseCache() {
         logger.info("t_normalRecursiveInterpolation_UseCache >>>");
         ToFailValidation_2 tobj = new ToFailValidation_2();
@@ -147,7 +147,7 @@ public class AdvRBMsgInterpolatorTest {
     @AlwaysFail(message = "{test.2.cyclicproperty}")
     private static class ToFailValidation_3 {}
 
-    @Test(dependsOnMethods = {"t_alwaysFailValidator", "t_normalRecursiveInterpolation", "t_normalRecursiveInterpolation_UseCache"})
+    @Test(dependsOnMethods = {"t_normalRecursiveInterpolation_UseCache"})
     public void t_cyclycPropDependencyStackOverflow() {
         logger.info("t_cyclycPropDependencyStackOverflow >>>");
         ToFailValidation_3 tobj = new ToFailValidation_3();
@@ -180,7 +180,7 @@ public class AdvRBMsgInterpolatorTest {
         private ToFailValidation_4() { lis = Arrays.asList("111","222"); }
     }
 
-    @Test(dependsOnMethods = {"t_alwaysFailValidator", "t_normalRecursiveInterpolation", "t_normalRecursiveInterpolation_UseCache", "t_cyclycPropDependencyStackOverflow"})
+    @Test(dependsOnMethods = {"t_cyclycPropDependencyStackOverflow"})
     public void t_normalAnnotPropsFail() {
         logger.info("t_normalAnnotPropsFail >>>");
         ToFailValidation_4 tobj = new ToFailValidation_4();
@@ -208,7 +208,7 @@ public class AdvRBMsgInterpolatorTest {
         private ToFailValidation_5() { lis = Arrays.asList("111","222"); }
     }
 
-    @Test(dependsOnMethods = {"t_alwaysFailValidator", "t_normalRecursiveInterpolation", "t_normalRecursiveInterpolation_UseCache", "t_cyclycPropDependencyStackOverflow", "t_normalAnnotPropsFail"})
+    @Test(dependsOnMethods = {"t_normalAnnotPropsFail"})
     public void t_normalAnnotPropsFixed() {
         logger.info("t_normalAnnotPropsFixed >>>");
         ToFailValidation_5 tobj = new ToFailValidation_5();
@@ -234,7 +234,7 @@ public class AdvRBMsgInterpolatorTest {
     @ValidatorAnnotationTest(message = "{test.4.1.prop1}")
     private static class ToFailValidation_6 {}
 
-    @Test(dependsOnMethods = {"t_alwaysFailValidator", "t_normalRecursiveInterpolation", "t_normalRecursiveInterpolation_UseCache", "t_cyclycPropDependencyStackOverflow", "t_normalAnnotPropsFail", "t_normalAnnotPropsFixed"})
+    @Test(dependsOnMethods = {"t_normalAnnotPropsFixed"})
     public void t_complexAdvAnnotPropTest() {
         logger.info("t_complexAdvAnnotPropTest >>>");
         ToFailValidation_6 tobj = new ToFailValidation_6();
@@ -260,7 +260,7 @@ public class AdvRBMsgInterpolatorTest {
     @ValidatorAnnotationTest(message = "{test.4.2.prop1}")
     private static class ToFailValidation_7 {}
 
-    @Test(dependsOnMethods = {"t_alwaysFailValidator", "t_normalRecursiveInterpolation", "t_normalRecursiveInterpolation_UseCache", "t_cyclycPropDependencyStackOverflow", "t_normalAnnotPropsFail", "t_normalAnnotPropsFixed"})
+    @Test(dependsOnMethods = {"t_complexAdvAnnotPropTest"})
     public void t_complexLegacyAnnotPropFailingTest() {
         logger.info("t_complexLegacyAnnotPropFailingTest >>>");
         ToFailValidation_7 tobj = new ToFailValidation_7();
@@ -279,6 +279,34 @@ public class AdvRBMsgInterpolatorTest {
             validation_msg_failed = true;
         }
         Assert.assertEquals("XBCDYFGHZ", constraintViolations.iterator().next().getMessage());
+        Assert.assertFalse(validation_msg_failed);
+    }
+
+    /*
+    test.5.1=1{test.5.2}
+    test.5.2=2{$@test.5.3}{$@test.5.4}
+    test.5.3=3
+    */
+
+    @ValidatorAnnotationTest(message = "{test.5.1}")
+    private static class ToFailValidation_8 {}
+
+    @Test(dependsOnMethods = {"t_complexLegacyAnnotPropFailingTest"})
+    public void t_illusiveProps() {
+        logger.info("t_illusiveProps >>>");
+        ToFailValidation_8 tobj = new ToFailValidation_8();
+
+        Set<ConstraintViolation> constraintViolations = null;
+        boolean validation_msg_failed = false;
+
+        try {
+            constraintViolations = (Set) validator.validate(tobj);
+            outputValidationResult(constraintViolations);
+        } catch (Throwable e) {
+            e.printStackTrace();
+            validation_msg_failed = true;
+        }
+        Assert.assertEquals("12{$@test.5.3}{test.5.4}", constraintViolations.iterator().next().getMessage());
         Assert.assertFalse(validation_msg_failed);
     }
 }
