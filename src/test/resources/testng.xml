@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="TestNG_Suite" verbose="-1" parallel="classes">
+    <test name="Messages interpolator test." enabled="true">
+        <classes><class name="home.lang.jsr303mod.AdvRBMsgInterpolatorTest"/></classes>
+    </test>
+
+    <test name="Localized validation messages test." enabled="true">
+        <classes><class name="home.lang.jsr303mod.ValidationMessagesLocalizationTest"/></classes>
+    </test>
+
+</suite>
