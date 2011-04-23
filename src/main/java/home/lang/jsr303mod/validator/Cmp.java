@@ -17,22 +17,23 @@ import static java.lang.annotation.RetentionPolicy.*;
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Retention(RUNTIME)
 public @interface Cmp {
-    String message() default "{home.lang.jsr303mod.validator.Cmp.message}";
+    String message() default "{${rb=home.lang.jsr303mod.validator.vm}Cmp.message}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
     long value();
-    public enum REL { LT,LT_EQ,EQ,GT,GT_EQ;
+    public enum REL { LT,LT_EQ,EQ,NEQ,GT,GT_EQ;
         @Override
         public String toString() {
             return toString_property();
         }
         public String toString_property() {
             switch(this) {
-                case LT   : return "{home.lang.jsr303mod.validator.Cmp.REL.LT}";
-                case LT_EQ: return "{home.lang.jsr303mod.validator.Cmp.REL.LT_EQ}";
-                case    EQ: return "{home.lang.jsr303mod.validator.Cmp.REL.EQ}";
-                case GT   : return "{home.lang.jsr303mod.validator.Cmp.REL.GT}";
-                case GT_EQ: return "{home.lang.jsr303mod.validator.Cmp.REL.GT_EQ}";
+                case LT   : return "{${rb=home.lang.jsr303mod.validator.vm}Cmp.REL.LT}";
+                case LT_EQ: return "{${rb=home.lang.jsr303mod.validator.vm}Cmp.REL.LT_EQ}";
+                case    EQ: return "{${rb=home.lang.jsr303mod.validator.vm}Cmp.REL.EQ}";
+                case   NEQ: return "{${rb=home.lang.jsr303mod.validator.vm}Cmp.REL.NEQ}";
+                case GT   : return "{${rb=home.lang.jsr303mod.validator.vm}Cmp.REL.GT}";
+                case GT_EQ: return "{${rb=home.lang.jsr303mod.validator.vm}Cmp.REL.GT_EQ}";
             }
             throw new UnsupportedOperationException();
         }
@@ -41,6 +42,7 @@ public @interface Cmp {
                 case LT   : return "<";
                 case LT_EQ: return "\u2264";
                 case    EQ: return "=";
+                case   NEQ: return "\u2260";
                 case GT   : return ">";
                 case GT_EQ: return "\u2265";
             }
@@ -74,6 +76,7 @@ public @interface Cmp {
                     case LT   : return value <  cnstr_val;
                     case LT_EQ: return value <= cnstr_val;
                     case    EQ: return value == cnstr_val;
+                    case   NEQ: return value != cnstr_val;
                     case GT   : return value >  cnstr_val;
                     case GT_EQ: return value >= cnstr_val;
                 }
@@ -83,6 +86,7 @@ public @interface Cmp {
                     case LT   : return value <  cnstr_val;
                     case LT_EQ: return value <= cnstr_val;
                     case    EQ: return value == cnstr_val;
+                    case   NEQ: return value != cnstr_val;
                     case GT   : return value >  cnstr_val;
                     case GT_EQ: return value >= cnstr_val;
                 }
@@ -92,6 +96,7 @@ public @interface Cmp {
                     case LT   : return value <  cnstr_val;
                     case LT_EQ: return value <= cnstr_val;
                     case    EQ: return value == cnstr_val;
+                    case   NEQ: return value != cnstr_val;
                     case GT   : return value >  cnstr_val;
                     case GT_EQ: return value >= cnstr_val;
                 }
@@ -101,6 +106,7 @@ public @interface Cmp {
                     case LT   : return value <  cnstr_val;
                     case LT_EQ: return value <= cnstr_val;
                     case    EQ: return value == cnstr_val;
+                    case   NEQ: return value != cnstr_val;
                     case GT   : return value >  cnstr_val;
                     case GT_EQ: return value >= cnstr_val;
                 }
@@ -110,6 +116,7 @@ public @interface Cmp {
                     case LT   : return value <  cnstr_val;
                     case LT_EQ: return value <= cnstr_val;
                     case    EQ: return value == cnstr_val;
+                    case   NEQ: return value != cnstr_val;
                     case GT   : return value >  cnstr_val;
                     case GT_EQ: return value >= cnstr_val;
                 }
@@ -119,6 +126,7 @@ public @interface Cmp {
                     case LT   : return value <  cnstr_val;
                     case LT_EQ: return value <= cnstr_val;
                     case    EQ: return value == cnstr_val;
+                    case   NEQ: return value != cnstr_val;
                     case GT   : return value >  cnstr_val;
                     case GT_EQ: return value >= cnstr_val;
                 }
@@ -128,6 +136,7 @@ public @interface Cmp {
                     case LT   : return cmp <  0;
                     case LT_EQ: return cmp <= 0;
                     case    EQ: return cmp == 0;
+                    case   NEQ: return cmp != 0;
                     case GT   : return cmp >  0;
                     case GT_EQ: return cmp >= 0;
                 }
@@ -137,6 +146,7 @@ public @interface Cmp {
                     case LT   : return cmp <  0;
                     case LT_EQ: return cmp <= 0;
                     case    EQ: return cmp == 0;
+                    case   NEQ: return cmp != 0;
                     case GT   : return cmp >  0;
                     case GT_EQ: return cmp >= 0;
                 }
@@ -146,6 +156,7 @@ public @interface Cmp {
                     case LT   : return value <  cnstr_val;
                     case LT_EQ: return value <= cnstr_val;
                     case    EQ: return value == cnstr_val;
+                    case   NEQ: return value != cnstr_val;
                     case GT   : return value >  cnstr_val;
                     case GT_EQ: return value >= cnstr_val;
                 }
@@ -155,6 +166,7 @@ public @interface Cmp {
                     case LT   : return value <  cnstr_val;
                     case LT_EQ: return value <= cnstr_val;
                     case    EQ: return value == cnstr_val;
+                    case   NEQ: return value != cnstr_val;
                     case GT   : return value >  cnstr_val;
                     case GT_EQ: return value >= cnstr_val;
                 }

@@ -18,7 +18,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({ TYPE, METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Retention(RUNTIME)
 public @interface AlwaysFail {
-    String message() default "{home.lang.jsr303mod.validator.AlwaysFail.message}";
+    String message() default "{${rb=home.lang.jsr303mod.validator.vm)AlwaysFail.message}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 

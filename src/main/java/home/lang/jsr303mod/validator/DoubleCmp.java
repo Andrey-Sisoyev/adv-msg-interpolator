@@ -17,7 +17,7 @@ import static java.lang.annotation.RetentionPolicy.*;
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Retention(RUNTIME)
 public @interface DoubleCmp {
-    String message() default "{home.lang.jsr303mod.validator.Cmp.message}";
+    String message() default "{${rb=home.lang.jsr303mod.validator.vm}Cmp.message}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
     double value();
@@ -48,6 +48,7 @@ public @interface DoubleCmp {
                     case LT   : return value <  cnstr_val;
                     case LT_EQ: return value <= cnstr_val;
                     case    EQ: return value == cnstr_val;
+                    case   NEQ: return value != cnstr_val;
                     case GT   : return value >  cnstr_val;
                     case GT_EQ: return value >= cnstr_val;
                 }
@@ -57,6 +58,7 @@ public @interface DoubleCmp {
                     case LT   : return value <  cnstr_val;
                     case LT_EQ: return value <= cnstr_val;
                     case    EQ: return value == cnstr_val;
+                    case   NEQ: return value != cnstr_val;
                     case GT   : return value >  cnstr_val;
                     case GT_EQ: return value >= cnstr_val;
                 }
@@ -66,6 +68,7 @@ public @interface DoubleCmp {
                     case LT   : return value <  cnstr_val;
                     case LT_EQ: return value <= cnstr_val;
                     case    EQ: return value == cnstr_val;
+                    case   NEQ: return value != cnstr_val;
                     case GT   : return value >  cnstr_val;
                     case GT_EQ: return value >= cnstr_val;
                 }
@@ -75,6 +78,7 @@ public @interface DoubleCmp {
                     case LT   : return value <  cnstr_val;
                     case LT_EQ: return value <= cnstr_val;
                     case    EQ: return value == cnstr_val;
+                    case   NEQ: return value != cnstr_val;
                     case GT   : return value >  cnstr_val;
                     case GT_EQ: return value >= cnstr_val;
                 }
@@ -84,6 +88,7 @@ public @interface DoubleCmp {
                     case LT   : return value <  cnstr_val;
                     case LT_EQ: return value <= cnstr_val;
                     case    EQ: return value == cnstr_val;
+                    case   NEQ: return value != cnstr_val;
                     case GT   : return value >  cnstr_val;
                     case GT_EQ: return value >= cnstr_val;
                 }
@@ -93,6 +98,7 @@ public @interface DoubleCmp {
                     case LT   : return value <  cnstr_val;
                     case LT_EQ: return value <= cnstr_val;
                     case    EQ: return value == cnstr_val;
+                    case   NEQ: return value != cnstr_val;
                     case GT   : return value >  cnstr_val;
                     case GT_EQ: return value >= cnstr_val;
                 }
@@ -102,6 +108,7 @@ public @interface DoubleCmp {
                     case LT   : return value <  cnstr_val;
                     case LT_EQ: return value <= cnstr_val;
                     case    EQ: return value == cnstr_val;
+                    case   NEQ: return value != cnstr_val;
                     case GT   : return value >  cnstr_val;
                     case GT_EQ: return value >= cnstr_val;
                 }
@@ -111,6 +118,7 @@ public @interface DoubleCmp {
                     case LT   : return cmp <  0;
                     case LT_EQ: return cmp <= 0;
                     case    EQ: return cmp == 0;
+                    case   NEQ: return cmp != 0;
                     case GT   : return cmp >  0;
                     case GT_EQ: return cmp >= 0;
                 }
@@ -120,6 +128,7 @@ public @interface DoubleCmp {
                     case LT   : return value <  cnstr_val;
                     case LT_EQ: return value <= cnstr_val;
                     case    EQ: return value == cnstr_val;
+                    case   NEQ: return value != cnstr_val;
                     case GT   : return value >  cnstr_val;
                     case GT_EQ: return value >= cnstr_val;
                 }
@@ -129,6 +138,7 @@ public @interface DoubleCmp {
                     case LT   : return value <  cnstr_val;
                     case LT_EQ: return value <= cnstr_val;
                     case    EQ: return value == cnstr_val;
+                    case   NEQ: return value != cnstr_val;
                     case GT   : return value >  cnstr_val;
                     case GT_EQ: return value >= cnstr_val;
                 }

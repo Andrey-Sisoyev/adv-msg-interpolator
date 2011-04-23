@@ -1,9 +1,7 @@
-package home.lang.jsr303mod;
+package home.lang.jsr303mod.rbmsginterpolator;
 
 import home.lang.HomeUtils;
-import home.lang.jsr303mod.rbmsginterpolator.AdvRBMsgInterpolator;
-import home.lang.jsr303mod.rbmsginterpolator.AdvRBMsgInterpolator_ForValidator;
-import home.lang.jsr303mod.rbmsginterpolator.RBMsgKeyResolved;
+import home.lang.jsr303mod.ValidatorAnnotationTest;
 import home.lang.jsr303mod.validator.AlwaysFail;
 import org.hibernate.validator.HibernateValidator;
 import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;

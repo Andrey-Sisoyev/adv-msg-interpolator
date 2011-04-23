@@ -3,11 +3,16 @@
 
 <suite name="TestNG_Suite" verbose="-1" parallel="classes">
     <test name="Messages interpolator test." enabled="true">
-        <classes><class name="home.lang.jsr303mod.AdvRBMsgInterpolatorTest"/></classes>
+        <classes><class name="home.lang.jsr303mod.rbmsginterpolator.AdvRBMsgInterpolatorTest"/></classes>
     </test>
 
     <test name="Localized validation messages test." enabled="true">
         <classes><class name="home.lang.jsr303mod.ValidationMessagesLocalizationTest"/></classes>
     </test>
+
+    <test name="New constraints test." enabled="true">
+        <classes><class name="home.lang.jsr303mod.validator.ValidatorsTest"/></classes>
+    </test>
+
 
 </suite>
