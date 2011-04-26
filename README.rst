@@ -4,18 +4,18 @@ A message interpolator based on a seriously rewritten MI from hibernate-validato
 
  **(B)** RB name may be specified by the RB property like so: **{${rb=MyBusinessObj_messages}violations.businessRule_1.message}** . This approach allows incapsulation of application specific validation messages by the business objects, while in current JSR303 you are bound to put everything in a messy one file.
 
- **(C)** Annotations properties are differentiated from RB properties: **{\$\@my_favorite_annotation_property}** , but legacy syntax is still supported for backward compatibility - if {property} isn't resolved in default RB's, annotation properties are checked for such prop name.
+ **(C)** Annotations properties are differentiated from RB properties: **{\$\@my_favorite_annotation_property}** , but legacy syntax is still supported for backward compatibility - if **{property}** isn't resolved in default RB's, annotation properties are checked for such prop name.
 
 
-New resolution algorithm is mostly backward compatible (except for it may resolve more than JSR303 would do, which case is hard to imagine):
+New resolution algorithm is mostly backward compatible, except for it may resolve more than JSR303 would do (which case is hard to imagine):
 
- **(1)** Resolve all the RB property recursively:
+ **(1)** Resolve all the RB properties recursively:
 
- **(1.1)** If RB name specified (by the property) look for it only in specified RB
+ **(1.1)** If RB name is specified (by the property, like so: **{\$\{rb=myrb_name}property_id}**)) look for it only in specified RB
 
  **(1.2)** Else look in the user's *ValidationsMessages* RB (or what he've configured) and if not found, look for it in the "*org.hibernate.validator.ValidationMessages*" inner core RB
 
- **(2)** If no more properties resolution possible, resolve annotations properties. On each resolved annotation fragment go recursively to (1).
+ **(2)** If no more properties resolutions possible, resolve annotation properties. On each resolved annotation fragment go recursively to **(1)**.
 
 
 Step **(1)** has 3 caches in use, assumming, that resource bundle content would never change dynamically (while application is working):
