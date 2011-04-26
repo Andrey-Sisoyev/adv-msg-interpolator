@@ -1,0 +1,34 @@
+A message interpolator based on a seriously rewritten MI from hibernate-validator v4.1.0.Final, using algorithm a bit different one than specified in JSR303. A more advanced approach, where: <BR>
+<B>(A)</B> Both RBs (resource bundle) and annotations ones may be mutually recursivaly resolved. While original algorithm allowed annotation properties resolution only once, nonrecursively and in the end of algorithm. The rationale for this advancement is mainly in the presentation of enums and ADTs.<BR>
+<B>(B)</B> RB name may be specified by the RB property like so: {${rb=MyBusinessObj_messages}violations.businessRule_1.message} . This approach allows incapsulation of application specific validations by the business objects, while in current JSR303 you are bound to put everything in a messy one file.<BR>
+<B>(C)</B> Annotations properties are differentiated from RB properties: {$@my_favoriteannotation_property} , but legacy syntax is still supported for backward compatibility - if {property} isn't resolved in default RB's, annotation properties are checked for such prop name.<BR>
+<BR>
+New resolution algorithm is mostly backward compatible (except for it may resolve more than JSR303 would do, which case is hard to imagine):<BR>
+<B>(1)</B> Resolve all the RB property recursively:<BR>
+<B>(1.1)</B> If RB name specified (by the property) look for it only in specified RB<BR>
+<B>(1.2)</B> Else look in the user's ValidationsMessages RB (or what he've configured) and if not found, look for it in the "org.hibernate.validator.ValidationMessages" inner core RB<BR>
+<B>(2)</B> If no more properties resolution possible, resolve annotations properties. On each resolved annotation fragment go recursively to (1).<BR>
+<BR>
+Step (1) has 3 caches in use, assumming, that resource bundle content would never change dinamically (while application is working):<BR>
+<B>1.</B> {RBName :: String, Locale} -> ResourceBundle<BR>
+<B>2.</B> {RBName :: String, PBPropertyKey :: String, Locale} -> {ResourceBundle, ResolvedMessage :: String, IsResolved :: Boolean}<BR>
+<B>3.</B> {RBProperty :: String, Locale, DefaultRBs :: ResourceBundle[]} -> ResolutionResult :: String<BR>
+<BR>
+Few bonuses are:<BR>
+ ** validators @Cmp and @DoubleCmp, that generalizes Min, Maxs, as well as EQ, NEQ, GT and LT operations. <BR>
+ ** validator @AlwaysFail for developement convenience<BR>
+ ** localization of core validation messages for languages: Russian and Latvian. <BR>
+<BR>
+Link:<BR>
+ ---- Example and discussion: <a href="http://forum.hibernate.org/viewtopic.php?f=26&t=1010669&p=2444299#p2444299">http://forum.hibernate.org/viewtopic.php?f=26&t=1010669&p=2444299#p2444299</a><BR>
+<BR>
+ ---- Property files: <BR>
+ &nbsp;------ localized core messages:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://github.com/Andrey-Sisoyev/adv-msg-interpolator/tree/master/src/main/native2ascii/properties/org/hibernate/validator">http://github.com/Andrey-Sisoyev/adv-msg-interpolator/tree/master/src/main/native2ascii/properties/org/hibernate/validator</a><BR>
+  ------ validation messages for new validators (like @Cmp):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://github.com/Andrey-Sisoyev/adv-msg-interpolator/tree/master/src/main/native2ascii/properties/home/lang/jsr303mod/validator">http://github.com/Andrey-Sisoyev/adv-msg-interpolator/tree/master/src/main/native2ascii/properties/home/lang/jsr303mod/validator</a><BR>
+<BR>
+ ---- MessageInterpolator impl classes: <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://github.com/Andrey-Sisoyev/adv-msg-interpolator/tree/master/src/main/java/home/lang/jsr303mod/rbmsginterpolator">http://github.com/Andrey-Sisoyev/adv-msg-interpolator/tree/master/src/main/java/home/lang/jsr303mod/rbmsginterpolator</a><BR>
+<BR>
+<h2>Everything is well-tested and ready for industrial use, so, you are welcome.</h2>
