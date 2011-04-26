@@ -1,12 +1,12 @@
 A message interpolator based on a seriously rewritten MI from hibernate-validator v4.1.0.Final, using algorithm a bit different one than specified in JSR303. A more advanced approach, where: <BR>
-<B>(A)</B> Both RBs (resource bundle) and annotations ones may be mutually recursivaly resolved. While original algorithm allowed annotation properties resolution only once, nonrecursively and in the end of algorithm. The rationale for this advancement is mainly in the presentation of enums and ADTs.<BR>
-<B>(B)</B> RB name may be specified by the RB property like so: {${rb=MyBusinessObj_messages}violations.businessRule_1.message} . This approach allows incapsulation of application specific validations by the business objects, while in current JSR303 you are bound to put everything in a messy one file.<BR>
-<B>(C)</B> Annotations properties are differentiated from RB properties: {$@my_favoriteannotation_property} , but legacy syntax is still supported for backward compatibility - if {property} isn't resolved in default RB's, annotation properties are checked for such prop name.<BR>
+<B>(A)</B> Both RBs (resource bundle) and (validator's) annotation properties may be mutually recursivaly resolved. While original algorithm allowed annotation properties resolution only once, nonrecursively and in the end of algorithm. The rationale for this advancement is mainly in the presentation of enums and ADTs.<BR>
+<B>(B)</B> RB name may be specified by the RB property like so: <B>{${rb=MyBusinessObj_messages}violations.businessRule_1.message}</B> . This approach allows incapsulation of application specific validation messages by the business objects, while in current JSR303 you are bound to put everything in a messy one file.<BR>
+<B>(C)</B> Annotations properties are differentiated from RB properties: <B>{$@my_favorite_annotation_property}</B> , but legacy syntax is still supported for backward compatibility - if {property} isn't resolved in default RB's, annotation properties are checked for such prop name.<BR>
 <BR>
 New resolution algorithm is mostly backward compatible (except for it may resolve more than JSR303 would do, which case is hard to imagine):<BR>
 <B>(1)</B> Resolve all the RB property recursively:<BR>
 <B>(1.1)</B> If RB name specified (by the property) look for it only in specified RB<BR>
-<B>(1.2)</B> Else look in the user's ValidationsMessages RB (or what he've configured) and if not found, look for it in the "org.hibernate.validator.ValidationMessages" inner core RB<BR>
+<B>(1.2)</B> Else look in the user's <I>ValidationsMessages</I> RB (or what he've configured) and if not found, look for it in the "<I>org.hibernate.validator.ValidationMessages</I>" inner core RB<BR>
 <B>(2)</B> If no more properties resolution possible, resolve annotations properties. On each resolved annotation fragment go recursively to (1).<BR>
 <BR>
 Step (1) has 3 caches in use, assumming, that resource bundle content would never change dynamically (while application is working):<BR>
@@ -15,8 +15,8 @@ Step (1) has 3 caches in use, assumming, that resource bundle content would neve
 <B>3.</B> {RBProperty :: String, Locale, DefaultRBs :: ResourceBundle[]} -> ResolutionResult :: String<BR>
 <BR>
 Few bonuses are:<BR>
- ** validators @Cmp and @DoubleCmp, that generalizes Min, Maxs, as well as EQ, NEQ, GT and LT operations. <BR>
- ** validator @AlwaysFail for developement convenience<BR>
+ ** validators <B>@Cmp</B> and <B>@DoubleCmp</B>, that generalizes @Min, @Max, as well as EQ, NEQ, GT and LT operations. <BR>
+ ** validator <B>@AlwaysFail</B> for developement convenience<BR>
  ** localization of core validation messages for languages: Russian and Latvian. <BR>
 <BR>
 Links:<BR>
