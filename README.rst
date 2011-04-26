@@ -40,7 +40,7 @@ Links:
 
  \---> Example and discussion: 
 
-           http://forum.hibernate.org/viewtopic.php?f=26=1010669=2444299#p2444299
+           http://forum.hibernate.org/viewtopic.php?f=26&t=1010669
 
 
  \---> Property files:
