@@ -9,9 +9,9 @@ New resolution algorithm is mostly backward compatible (except for it may resolv
 <B>(1.2)</B> Else look in the user's ValidationsMessages RB (or what he've configured) and if not found, look for it in the "org.hibernate.validator.ValidationMessages" inner core RB<BR>
 <B>(2)</B> If no more properties resolution possible, resolve annotations properties. On each resolved annotation fragment go recursively to (1).<BR>
 <BR>
-Step (1) has 3 caches in use, assumming, that resource bundle content would never change dinamically (while application is working):<BR>
+Step (1) has 3 caches in use, assumming, that resource bundle content would never change dynamically (while application is working):<BR>
 <B>1.</B> {RBName :: String, Locale} -> ResourceBundle<BR>
-<B>2.</B> {RBName :: String, PBPropertyKey :: String, Locale} -> {ResourceBundle, ResolvedMessage :: String, IsResolved :: Boolean}<BR>
+<B>2.</B> {RBName :: String, RBPropertyKey :: String, Locale} -> {ResourceBundle, ResolvedMessage :: String, IsResolved :: Boolean}<BR>
 <B>3.</B> {RBProperty :: String, Locale, DefaultRBs :: ResourceBundle[]} -> ResolutionResult :: String<BR>
 <BR>
 Few bonuses are:<BR>
@@ -19,7 +19,7 @@ Few bonuses are:<BR>
  ** validator @AlwaysFail for developement convenience<BR>
  ** localization of core validation messages for languages: Russian and Latvian. <BR>
 <BR>
-Link:<BR>
+Links:<BR>
  ---- Example and discussion: <a href="http://forum.hibernate.org/viewtopic.php?f=26&t=1010669&p=2444299#p2444299">http://forum.hibernate.org/viewtopic.php?f=26&t=1010669&p=2444299#p2444299</a><BR>
 <BR>
  ---- Property files: <BR>

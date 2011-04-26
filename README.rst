@@ -18,11 +18,11 @@ New resolution algorithm is mostly backward compatible (except for it may resolv
  **(2)** If no more properties resolution possible, resolve annotations properties. On each resolved annotation fragment go recursively to (1).
 
 
-Step **(1)** has 3 caches in use, assumming, that resource bundle content would never change dinamically (while application is working):
+Step **(1)** has 3 caches in use, assumming, that resource bundle content would never change dynamically (while application is working):
 
  **1.** {RBName :: String, Locale} -> ResourceBundle
 
- **2.** {RBName :: String, PBPropertyKey :: String, Locale} -> {ResourceBundle, ResolvedMessage :: String, IsResolved :: Boolean}
+ **2.** {RBName :: String, RBPropertyKey :: String, Locale} -> {ResourceBundle, ResolvedMessage :: String, IsResolved :: Boolean}
 
  **3.** {RBProperty :: String, Locale, DefaultRBs :: ResourceBundle[]} -> ResolutionResult :: String
 
@@ -36,7 +36,7 @@ Few bonuses are:
  \*\* localization of core validation messages for languages: Russian and Latvian.
 
 
-Link:
+Links:
 
  \---> Example and discussion: 
 
